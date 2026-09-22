@@ -1,5 +1,5 @@
 create table especialidades (
-idespecialidades serial primary key,
+idespecialidade serial primary key,
 nome varchar(50) not null unique 
 );
 
@@ -12,13 +12,13 @@ email varchar(100)
 
 create table medicos (
 idmedico serial primary key,
-idespecialidades int not null,
+idespecialidade int not null,
 nome varchar(100) not null,
 crm varchar(20) not null unique,
 telefone varchar(20),
 email varchar(100),
-constraint fk_med_especialidade foreign key (idespecialidades)
-references especialidades(idespecialidades)
+constraint fk_med_especialidade foreign key (idespecialidade)
+references especialidades(idespecialidade)
 );
 
 create table pacientes (
@@ -530,11 +530,50 @@ ON agendamentos(status);
 
 
 select * from pacientes 
-where nome = 'Maria Silva';ss
+where nome = 'Maria Silva';
 
 
 
+CREATE OR REPLACE VIEW public.vm_relatorio_consultas
+AS SELECT pacientes.nome AS paciente,
+    medicos.nome AS medico,
+    especialidades.nome AS especialidade,
+    consultas.data_consulta,
+    consultas.observacoes
+   FROM consultas
+     JOIN pacientes ON consultas.idpaciente = pacientes.idpaciente
+     JOIN medicos ON consultas.idmedico = medicos.idmedico
+     JOIN especialidades ON medicos.idespecialidade = especialidades.idespecialidade;
 
+CREATE OR REPLACE VIEW public.vm_relatorio_financeiro
+AS SELECT pacientes.nome AS paciente,
+    pagamentos.valor,
+    pagamentos.forma_pagamento,
+    pagamentos.status,
+    consultas.data_consulta
+   FROM pagamentos
+     JOIN consultas ON pagamentos.idconsulta = consultas.idconsulta
+     JOIN pacientes ON consultas.idpaciente = pacientes.idpaciente;
+
+CREATE OR REPLACE VIEW public.vw_pacientes_convenio
+AS SELECT pacientes.nome AS paciente,
+    pacientes.cpf,
+    pacientes.telefone,
+    pacientes.data_nascimento,
+    convenios.nome AS convenios
+   FROM pacientes
+     JOIN convenios ON pacientes.idconvenio = convenios.idconvenio;
+
+CREATE OR REPLACE VIEW public.vw_relatorio_exames
+AS SELECT pacientes.nome AS pacientes,
+    exames.nome AS exame,
+    exames.resultado,
+    exames.observacoes,
+    exames.data_solicitacao,
+    exames.data_resultado
+   FROM exames
+     JOIN consultas ON exames.idconsulta = consultas.idconsulta
+     JOIN pacientes ON consultas.idpaciente = pacientes.idpaciente;
 
 
 
