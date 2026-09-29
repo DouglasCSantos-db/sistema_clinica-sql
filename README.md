@@ -32,6 +32,26 @@ O banco de dados **clinica_db** é composto por **11 tabelas**:
 
 ---
 
+## 📈 Volume de Dados
+
+| Tabela | Registros |
+|--------|-----------|
+| `especialidades` | 13 |
+| `convenios` | 11 |
+| `medicos` | 17 |
+| `pacientes` | 65 (incluindo crianças) |
+| `prontuarios` | 65 |
+| `agendamentos` | 116 (julho a outubro de 2026) |
+| `consultas` | 70 |
+| `receitas` | 49 |
+| `medicamentos` | 50 |
+| `exames` | 87 |
+| `pagamentos` | 70 |
+
+Os dados são fictícios, mas coerentes entre si: crianças são atendidas na Pediatria, nenhum paciente recebe um medicamento ao qual é alérgico, consultas só existem para agendamentos confirmados e exames recentes aparecem como aguardando resultado.
+
+---
+
 ## 🔍 Funcionalidades
 
 - ✅ Cadastro completo de pacientes e médicos
@@ -48,8 +68,8 @@ O banco de dados **clinica_db** é composto por **11 tabelas**:
 
 | View | Descrição |
 |------|-----------|
-| `vm_relatorio_consultas` | Relatório completo de consultas com médico e especialidade |
-| `vm_relatorio_financeiro` | Relatório financeiro por paciente |
+| `vw_relatorio_consultas` | Relatório completo de consultas com médico e especialidade |
+| `vw_relatorio_financeiro` | Relatório financeiro por paciente |
 | `vw_relatorio_exames` | Relatório de exames com resultados |
 | `vw_pacientes_convenio` | Lista de pacientes com plano de saúde |
 
@@ -79,6 +99,7 @@ O banco de dados **clinica_db** é composto por **11 tabelas**:
 - Modelagem de banco de dados relacional
 - Chaves primárias (PRIMARY KEY) e estrangeiras (FOREIGN KEY)
 - Subqueries e subqueries aninhadas
+- INSERT ... SELECT com VALUES e JOIN para carga de dados em massa
 - INNER JOIN e LEFT JOIN com múltiplas tabelas
 - Funções de agregação (COUNT, SUM, AVG, MIN, MAX)
 - GROUP BY e HAVING
@@ -91,8 +112,9 @@ O banco de dados **clinica_db** é composto por **11 tabelas**:
 
 1. Certifique-se de ter o **PostgreSQL** instalado
 2. Clone este repositório
-3. Execute o arquivo `clinica_db.sql` no seu cliente SQL (DBeaver, pgAdmin, etc.)
-4. O script irá criar o banco, as tabelas, inserir os dados e criar as views automaticamente
+3. Crie o banco de dados: `CREATE DATABASE clinica_db;`
+4. Conecte no banco `clinica_db` (no DBeaver, selecione-o como banco ativo)
+5. Execute o arquivo `clinica_db.sql` — o script cria as tabelas, insere os dados e cria as views e índices
 
 ---
 
