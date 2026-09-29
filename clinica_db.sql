@@ -514,7 +514,7 @@ CREATE INDEX idx_medicos_nome ON medicos(nome);
 CREATE INDEX idx_consultas_data ON consultas(data_consulta);
 CREATE INDEX idx_agendamentos_status ON agendamentos(status);
 
-QUERIES DE PRÁTICA E RELATÓRIOS
+-- QUERIES DE PRÁTICA E RELATÓRIOS
 -- =============================================
 
 -- -----------------------------------------------
